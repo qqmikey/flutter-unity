@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Collections;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
@@ -20,6 +21,17 @@ public class NativeBridge : MonoBehaviour
 
 	#endif
 
+	IEnumerator  Start()
+	{
+		while (Vuforia.VuforiaRuntime.Instance == null)
+			yield return null;
+
+		while (!Vuforia.VuforiaRuntime.Instance.HasInitialized)
+			yield return null;
+
+		CallNative("unityReady", "true");
+	}
+
 	private void HideControls(string command)
 	{
 		Canvas canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
@@ -34,11 +46,6 @@ public class NativeBridge : MonoBehaviour
 		}
 	}
 
-	public void OnMenuClick()
-	{
-		CustomEvent("menu", "toggle");
-	}
-
 	public void CallNative(string key, string value)
     {
         // Debug.Log("CallNative: " + funcName + "(" + mTrackableBehaviour.TrackableName + ")");
@@ -51,12 +58,10 @@ public class NativeBridge : MonoBehaviour
         }));
 #endif
 #if UNITY_IOS && !UNITY_EDITOR
-        public void OnTargetFound(string target)
-	{
-		CustomEvent("target", target);
-	}
-        NativeBridge nb = GameObject.Find("NATIVE_BRIDGE").GetComponent<NativeBridge>();
-        nb.OnTargetFound(mTrackableBehaviour.TrackableName);
+        CustomEvent(key, value);
 #endif
     }
 }
+
+// NativeBridge nb = GameObject.Find("NATIVE_BRIDGE").GetComponent<NativeBridge>();
+// nb.CallNative(k, v);

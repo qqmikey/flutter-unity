@@ -35,6 +35,19 @@ class MainActivity : FlutterActivity() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (data == null) {
+            return
+        }
+        if (data.getBooleanExtra("unityResult", false)) {
+            val hashmap = HashMap<String, Any>()
+            hashmap.put("shouldUpdateProfile", data.getBooleanExtra("shouldUpdateProfile", false))
+            methodChannelResult!!.success(hashmap)
+        }
+    }
+
     companion object {
         private const val CHANNEL = "flutter_unity.astera.com/flutter_event"
     }
