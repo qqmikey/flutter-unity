@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() => runApp(MyApp());
 
@@ -25,8 +26,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  _onOpenUnityPressed() {
+  static const platform = const MethodChannel('flutter_unity.astera.com/flutter_event');
 
+
+  _onOpenUnityPressed() async {
+    try {
+      final Map result = await platform.invokeMethod('openUnityView');
+      print(result);
+    } on PlatformException catch (e) {
+      print("Failed to get message from unity: '${e.message}'.");
+    }
   }
 
   @override
