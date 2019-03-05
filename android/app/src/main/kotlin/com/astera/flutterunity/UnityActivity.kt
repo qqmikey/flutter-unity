@@ -2,12 +2,13 @@ package com.astera.flutterunity
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.LinearLayout
-import com.unity3d.player.UnityPlayer
+import android.widget.ProgressBar
 import com.unity3d.player.UnityPlayerActivity
 
 class UnityActivity: UnityPlayerActivity() {
@@ -22,8 +23,8 @@ class UnityActivity: UnityPlayerActivity() {
         val jwt = intent.getStringExtra("jwt")
         this.setContentView(R.layout.activity_unity)
         instruction = findViewById(R.id.instruction)
-        val unityContent = findViewById<FrameLayout>(R.id.unity_content)
 
+        val unityContent = findViewById<FrameLayout>(R.id.unity_content)
         val unityView = mUnityPlayer.view
 
         if (unityContent.indexOfChild(unityView) == -1) {

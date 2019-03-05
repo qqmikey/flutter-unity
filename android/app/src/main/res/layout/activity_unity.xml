@@ -77,16 +77,16 @@
             android:paddingRight="24dp"
             android:text="Wait" />
 
+
         <ProgressBar
-            android:id="@+id/instruction_progress"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_margin="16dp"
-            android:indeterminate="true"
-            android:indeterminateTint="@color/colorWhite"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent" />
+                android:id="@+id/instruction_progress"
+                style="?android:attr/progressBarStyleLarge"
+                android:indeterminate="true"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_margin="16dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
     </LinearLayout>
 
